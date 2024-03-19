@@ -1,6 +1,6 @@
 # CMake Build Troubleshooting
 
-When building OASIS on your local machine, you may encounter issues during CMake's build process. Here are some suggestions for identifying the issue and resolving the issue on macOS operating systems:
+When building OASIS on your local machine, you may encounter issues during CMake's build process. Here are some suggestions for identifying your issue and resolving it on macOS operating systems:
 
 ## Common Issues and Solutions
 
