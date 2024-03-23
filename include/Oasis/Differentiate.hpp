@@ -25,6 +25,19 @@ public:
     EXPRESSION_TYPE(Differentiate);
 
     [[nodiscard]] auto ToString() const -> std::string final;
+
+    // Differentiate the power of a real base with a real exponent.
+    // Specialized for real numbers.
+    [[nodiscard]] auto DifferentiatePower(const Real& base, const Real& exponent) const -> std::unique_ptr<Expression>;
+
+    // Differentiate the power of a base with an exponent.
+    // Templated and can handle differentiation of expressions involving arbitrary types.
+    template <typename BaseT, typename PowerT>
+    [[nodiscard]] auto DifferentiatePower(const BaseT& base, const PowerT& exponent) const -> std::unique_ptr<Expression>;
+
+    // Helper function for simplifying expressions
+    template <typename T>
+    [[nodiscard]] auto Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>;
 }
 
 } // Oasis
