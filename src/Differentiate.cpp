@@ -38,6 +38,11 @@ template <typename BaseT, typename PowerT>
     return derivative;
 }
 
+[[nodiscard]] auto Differentiate<Expression>::DifferentiateConstant(double constant) const -> std::unique_ptr<Expression>
+{
+    return std::make_unique<Real>(0.0);
+}
+
 template <typename T>
 [[nodiscard]] auto Differentiate::Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>
 {

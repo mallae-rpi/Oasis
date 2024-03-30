@@ -35,6 +35,9 @@ public:
     template <typename BaseT, typename PowerT>
     [[nodiscard]] auto DifferentiatePower(const BaseT& base, const PowerT& exponent) const -> std::unique_ptr<Expression>;
 
+    // Differentiate a constant value.
+    [[nodiscard]] auto DifferentiateConstant(double constant) const -> std::unique_ptr<Expression>
+
     // Helper function for simplifying expressions
     template <typename T>
     [[nodiscard]] auto Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>;
