@@ -43,6 +43,35 @@ template <typename BaseT, typename PowerT>
     return std::make_unique<Real>(0.0);
 }
 
+[[nodiscard]] auto Differentiate<Expression>::DifferentiateSum(const Expression& augend, const Expression& addend) const -> std::unique_ptr<Expression>
+{
+    auto derivative_augend = Differentiate<Expression>().DifferentiateExpression(augend);
+    auto derivative_addend = Differentiate<Expression>().DifferentiateExpression(addend);
+    return std::make_unique<Add>(std::move(derivative_augend), std::move(derivative_addend));
+}
+
+[[nodiscard]] auto Differentiate<Expression>::DifferentiateDifference(const Expression& minuend, const Expression& subtrahend) const -> std::unique_ptr<Expression>
+{
+    auto derivative_minuend = Differentiate<Expression>().DifferentiateExpression(minuend);
+    auto derivative_subtrahend = Differentiate<Expression>().DifferentiateExpression(subtrahend);
+    return std::make_unique<Subtract>(std::move(derivative_minuend), std::move(derivative_subtrahend));
+}
+
+[[nodiscard]] auto Differentiate<Expression>::DifferentiateExpression(const Expression& expression) const -> std::unique_ptr<Expression>
+{
+    if (expression.Is<Real>()) {
+        return std::make_unique<Real>(0.0);
+    } else if (expression.Is<Variable>()) {
+        return std::make_unique<Real>(1.0);
+    } else if (expression.Is<Add>()) {
+        const auto& add_expression = static_cast<const Add&>(expression);
+    } else if (expression.Is<Subtract>()) {
+        const auto& subtract_expression = static_cast<const Subtract&>(expression);
+    } else {
+        throw std::runtime_error("Differentiation not implemented for this expression type.");
+    }
+}
+
 template <typename T>
 [[nodiscard]] auto Differentiate::Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>
 {

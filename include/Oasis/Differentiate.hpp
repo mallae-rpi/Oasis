@@ -38,9 +38,19 @@ public:
     // Differentiate a constant value.
     [[nodiscard]] auto DifferentiateConstant(double constant) const -> std::unique_ptr<Expression>
 
+    // Differentiate the sum of two expressions.
+    [[nodiscard]] auto DifferentiateSum(const Expression& augend, const Expression& addend) const -> std::unique_ptr<Expression>;
+
+    // Differentiate the difference of two expressions.
+    [[nodiscard]] auto DifferentiateDifference(const Expression& minuend, const Expression& subtrahend) const -> std::unique_ptr<Expression>;
+
     // Helper function for simplifying expressions
     template <typename T>
     [[nodiscard]] auto Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>;
+
+private:
+    // Function to differentiate an expression.
+    [[nodiscard]] auto DifferentiateExpression(const Expression& expression) const -> std::unique_ptr<Expression>;
 }
 
 } // Oasis
