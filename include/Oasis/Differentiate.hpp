@@ -36,7 +36,7 @@ public:
     [[nodiscard]] auto DifferentiatePower(const BaseT& base, const PowerT& exponent) const -> std::unique_ptr<Expression>;
 
     // Differentiate a constant value.
-    [[nodiscard]] auto DifferentiateConstant(double constant) const -> std::unique_ptr<Expression>
+    [[nodiscard]] auto DifferentiateConstant(double constant) const -> std::unique_ptr<Expression>;
 
     // Differentiate the sum of two expressions.
     [[nodiscard]] auto DifferentiateSum(const Expression& augend, const Expression& addend) const -> std::unique_ptr<Expression>;
