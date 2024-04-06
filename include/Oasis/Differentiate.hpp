@@ -44,6 +44,9 @@ public:
     // Differentiate the difference of two expressions.
     [[nodiscard]] auto DifferentiateDifference(const Expression& minuend, const Expression& subtrahend) const -> std::unique_ptr<Expression>;
 
+    // Different an expression multiplied by a constant.
+    [[nodiscard]] auto DifferentiateConstantMultiple(const CoefficientT& coefficient, const ExpressionT& expression) const -> std::unique_ptr<Expression>;
+
     // Helper function for simplifying expressions
     template <typename T>
     [[nodiscard]] auto Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>;

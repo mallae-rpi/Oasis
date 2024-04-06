@@ -77,6 +77,17 @@ auto DifferentiatePower(const BaseT& base, const PowerT& exponent) const -> std:
     }
 }
 
+template <typename CoefficientT, typename ExpressionT>
+[[nodiscard]] auto Differentiate<Expression>::DifferentiateConstantMultiple(const CoefficientT& coefficient, const ExpressionT& expression) const -> std::unique_ptr<Expression> {
+    // Differentiate the inner expression
+    auto derivative_expression = expression.Differentiate();
+
+    // Multiply the derivative of the inner expression by the constant coefficient
+    auto multiplied_derivative = std::make_unique<Multiply>(coefficient.Copy(), std::move(derivative_expression));
+
+    return multiplied_derivative;
+}
+
 template <typename T>
 [[nodiscard]] auto Differentiate::Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>
 {
