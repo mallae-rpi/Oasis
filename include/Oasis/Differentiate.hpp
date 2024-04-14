@@ -47,6 +47,10 @@ public:
     // Different an expression multiplied by a constant.
     [[nodiscard]] auto DifferentiateConstantMultiple(const CoefficientT& coefficient, const ExpressionT& expression) const -> std::unique_ptr<Expression>;
 
+    // Differentiate product function
+    template <typename Factor1T, typename Factor2T>
+    auto DifferentiateProduct(const Factor1T& factor1, const Factor2T& factor2) const -> std::unique_ptr<Expression>;
+
     // Helper function for simplifying expressions
     template <typename T>
     [[nodiscard]] auto Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>;

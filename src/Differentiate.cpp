@@ -88,6 +88,26 @@ template <typename CoefficientT, typename ExpressionT>
     return multiplied_derivative;
 }
 
+template <typename Factor1T, typename Factor2T>
+auto DifferentiateProduct(const Factor1T& factor1, const Factor2T& factor2) const -> std::unique_ptr<Expression> {
+    // Differentiate both factors
+    auto derivative_factor1 = factor1.Differentiate();
+    auto derivative_factor2 = factor2.Differentiate();
+
+    // Create expressions for the product and its derivatives
+    auto product = std::make_unique<Multiply>(factor1.Copy(), factor2.Copy());
+    auto product_derivative_factor1 = std::make_unique<Multiply>(derivative_factor1->Copy(), factor2.Copy());
+    auto product_derivative_factor2 = std::make_unique<Multiply>(factor1.Copy(), derivative_factor2->Copy());
+
+    // Create an expression for the sum of the products of the derivatives
+    auto sum_of_products = std::make_unique<Add>(std::move(product_derivative_factor1), std::move(product_derivative_factor2));
+
+    // Combine the original product and the sum of the products of the derivatives
+    auto result = std::make_unique<Add>(std::move(product), std::move(sum_of_products));
+
+    return result;
+}
+
 template <typename T>
 [[nodiscard]] auto Differentiate::Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>
 {
