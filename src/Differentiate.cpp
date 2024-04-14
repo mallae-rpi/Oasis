@@ -110,6 +110,24 @@ auto Differentiate<Expression>::DifferentiateProduct(const Factor1T& factor1, co
     return result;
 }
 
+template <typename ExpressionT>
+auto Differentiate<ExpressionT>::DifferentiateQuotient(const Expression& dividend, const Expression& divisor) const -> std::unique_ptr<Expression>
+{
+    // Differentiate the dividend and divisor
+    auto d_dividend = DifferentiateExpression(dividend);
+    auto d_divisor = DifferentiateExpression(divisor);
+
+    // Compute the numerator and denominator of the derivative
+    auto numerator = MakeExpression<Subtract>(MakeExpression<Multiply>(divisor, std::move(d_dividend)),
+        MakeExpression<Multiply>(dividend, std::move(d_divisor)));
+    auto denominator = MakeExpression<Exponent>(std::move(d_divisor), MakeExpression<Real>(2.0));
+
+    // Create the quotient expression
+    auto result = MakeExpression<Divide>(std::move(numerator), std::move(denominator));
+
+    return result;
+}
+
 template <typename T>
 [[nodiscard]] auto Differentiate::Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>
 {
