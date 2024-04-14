@@ -114,8 +114,8 @@ template <typename ExpressionT>
 auto Differentiate<ExpressionT>::DifferentiateQuotient(const Expression& dividend, const Expression& divisor) const -> std::unique_ptr<Expression>
 {
     // Differentiate the dividend and divisor
-    auto d_dividend = DifferentiateExpression(dividend);
-    auto d_divisor = DifferentiateExpression(divisor);
+    auto d_dividend = dividend.Differentiate();
+    auto d_divisor = divisor.Differentiate();
 
     // Compute the numerator and denominator of the derivative
     auto numerator = MakeExpression<Subtract>(MakeExpression<Multiply>(divisor, std::move(d_dividend)),
