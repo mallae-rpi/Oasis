@@ -78,7 +78,8 @@ auto DifferentiatePower(const BaseT& base, const PowerT& exponent) const -> std:
 }
 
 template <typename CoefficientT, typename ExpressionT>
-[[nodiscard]] auto Differentiate<Expression>::DifferentiateConstantMultiple(const CoefficientT& coefficient, const ExpressionT& expression) const -> std::unique_ptr<Expression> {
+[[nodiscard]] auto Differentiate<Expression>::DifferentiateConstantMultiple(const CoefficientT& coefficient, const ExpressionT& expression) const -> std::unique_ptr<Expression>
+{
     // Differentiate the inner expression
     auto derivative_expression = expression.Differentiate();
 
@@ -89,7 +90,8 @@ template <typename CoefficientT, typename ExpressionT>
 }
 
 template <typename Factor1T, typename Factor2T>
-auto DifferentiateProduct(const Factor1T& factor1, const Factor2T& factor2) const -> std::unique_ptr<Expression> {
+auto Differentiate<Expression>::DifferentiateProduct(const Factor1T& factor1, const Factor2T& factor2) const -> std::unique_ptr<Expression>
+{
     // Differentiate both factors
     auto derivative_factor1 = factor1.Differentiate();
     auto derivative_factor2 = factor2.Differentiate();
