@@ -3,6 +3,7 @@
 //
 
 #include "Oasis/Differentiate.hpp"
+#include "Differentiate.hpp"
 
 namespace Oasis {
 
@@ -110,8 +111,8 @@ auto Differentiate<Expression>::DifferentiateProduct(const Factor1T& factor1, co
     return result;
 }
 
-template <typename ExpressionT>
-auto Differentiate<ExpressionT>::DifferentiateQuotient(const Expression& dividend, const Expression& divisor) const -> std::unique_ptr<Expression>
+template<typename DividendT, typename DivisorT>
+auto Differentiate<Expression>::DifferentiateQuotient(const DividendT & dividend, const DivisorT & divisor) const -> std::unique_ptr<Expression>
 {
     // Differentiate the dividend and divisor
     auto d_dividend = dividend.Differentiate();
@@ -124,6 +125,19 @@ auto Differentiate<ExpressionT>::DifferentiateQuotient(const Expression& dividen
 
     // Create the quotient expression
     auto result = MakeExpression<Divide>(std::move(numerator), std::move(denominator));
+
+    return result;
+}
+
+template <typename OuterFunctionT, typename InnerFunctionT>
+auto Differentiate<Expression>::DifferentiateChain(const OuterFunctionT& outer_function, const InnerFunctionT& inner_function) const -> std::unique_ptr<Expression>
+{
+    // Differentiate the outer and inner functions
+    auto d_outer = DifferentiateExpression(outer_function);
+    auto d_inner = DifferentiateExpression(inner_function);
+
+    // Compute the chain rule derivative
+    auto result = MakeExpression<Multiply>(std::move(d_outer), std::move(d_inner));
 
     return result;
 }

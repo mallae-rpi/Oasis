@@ -45,6 +45,7 @@ public:
     [[nodiscard]] auto DifferentiateDifference(const Expression& minuend, const Expression& subtrahend) const -> std::unique_ptr<Expression>;
 
     // Different an expression multiplied by a constant.
+    template <typename CoefficientT, typename ExpressionT>
     [[nodiscard]] auto DifferentiateConstantMultiple(const CoefficientT& coefficient, const ExpressionT& expression) const -> std::unique_ptr<Expression>;
 
     // Differentiate product function
@@ -54,6 +55,10 @@ public:
     // Differentiate quotient function
     template <typename DividendT, typename DivisorT>
     auto DifferentiateQuotient(const DividendT& dividend, const DivisorT& divisor) const -> std::unique_ptr<Expression>;
+
+    // Differentiate composite function
+    template <typename OuterFunctionT, typename InnerFunctionT>
+    auto DifferentiateChain(const OuterFunctionT& outer_function, const InnerFunctionT& inner_function) const -> std::unique_ptr<Expression>;
 
     // Helper function for simplifying expressions
     template <typename T>
