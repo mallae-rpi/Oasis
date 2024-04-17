@@ -63,11 +63,7 @@ public:
     // Helper function for simplifying expressions
     template <typename T>
     [[nodiscard]] auto Simplify(std::unique_ptr<Expression> expr) const -> std::unique_ptr<Expression>;
-
-private:
-    // Function to differentiate an expression.
-    [[nodiscard]] auto DifferentiateExpression(const Expression& expression) const -> std::unique_ptr<Expression>;
-}
+};
 
 } // Oasis
 
