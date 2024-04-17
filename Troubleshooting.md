@@ -1,6 +1,6 @@
 # CMake Build Troubleshooting
 
-When building OASIS on your local machine, you may encounter issues during CMake's build process. Here are some suggestions for identifying your issue and resolving it on macOS operating systems:
+When building OASIS on your local machine, you may encounter issues during CMake's build process. Here are some suggestions for identifying your issue and resolving it on certain platforms:
 
 ## Common Issues and Solutions
 
@@ -21,6 +21,18 @@ Sometimes, issues can arise due to missing or outdated Xcode Command Line Tools.
 If you would prefer to build this project by using the features of IDE instead of running commands in a terminal, the recommended code editor/IDE to work on contributions to OASIS is Visual Studio Code. To properly have CMake build your project, ensure that you have the CMake and CMake Tools extensions installed in Visual Studio Code. Then, hold down shift + command + P on your keyboard to bring down a drop down menu. Next, select the CMake: Configure option to configure the building settings. Do not worry if CMake reports that it could not find libraries; this is normal. Then, bring down the drop down menu again using the same keyboard shortcut and select the CMake: Build option. If all other settings are working correctly, CMake should successfully build OASIS on your computer.
 
 [Further reading](https://stackoverflow.com/questions/73328916/how-to-set-cmake-build-configuration-in-vscode)
+
+Another potential option you may want to consider is Replit. Replit is an online IDE that can be used within your browser. Each Replit project provides you with a shell that can be used to input commands. In addition, it is integrated with a tool called Nix, which manages software packages. As a result, Replit makes it easier to use CMake to build OASIS. For more information, see the "Replit" section below.
+
+# Replit
+If you like to build the project via Replit to avoid having to install the necessary software to build it on your local machine, follow these steps:
+
+1. Create a fork of the OASIS repository on GitHub.
+2. If you have not done so already, link your Replit account to your GitHub account.
+3. On Replit, press the "Create Repl" button and then press the "Import from GitHub" button, selecting your fork of the repository.
+4. In the shell, type in the `mkdir build` to create a directory called `build`. Then type in `cd build` to set `build` as the current directory.
+5. Enter the `cmake ..` command to generate the build files. It is likely that the shell will alert you that the `cmake` command is not installed. However, it will also inform you that multiple versions of this command were found in Nix. Select the `cmake         3.24.3  Cross-platform, open-source build systr` option and press enter.
+6. After the build files have been generated, enter the command `make -j8` to build the project. Note that the flag `-j8` is necessary as building the project is heavy on the CPU and RAM, and the flag denotes you want to allot 8 threads for compiling. Otherwise, the process will likely terminate earlier on with errors.
 
 ## Ongoing Issues
 
