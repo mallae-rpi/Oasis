@@ -24,7 +24,7 @@ If you would prefer to build this project by using the features of IDE instead o
 
 Another potential option you may want to consider is Replit. Replit is an online IDE that can be used within your browser. Each Replit project provides you with a shell that can be used to input commands. In addition, it is integrated with a tool called Nix, which manages software packages. As a result, Replit makes it easier to use CMake to build OASIS. For more information, see the "Replit" section below.
 
-# Replit
+## Replit
 If you like to build the project via Replit to avoid having to install the necessary software to build it on your local machine, follow these steps:
 
 1. Create a fork of the OASIS repository on GitHub.
